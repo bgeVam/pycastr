@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version=1.0
+Name=pycastr
+# Only KDE 4 seems to use GenericName, so we reuse the KDE strings.
+# From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413.
+GenericName=pycastr
+Comment=Cast audio/video to upnp clients
+Exec=python /opt/pycastr/pycastr.py cast -C 192.168.0.15 --audio-only
+Terminal=false
+Icon=/usr/share/icons/hicolor/256x256/apps/pycastr.png
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
+X-Ayatana-Desktop-Shortcuts=CastDesktop;CastPresentation
+
+[Desktop Action CastDesktop]
+Name=Cast Desktop
+Exec=python /opt/pycastr/pycastr.py cast -C 192.168.0.15
+
+[Desktop Action CastPresentation]
+Name=Cast Presentation
+Exec=python /opt/pycastr/pycastr.py cast -C 192.168.0.15 --video-only

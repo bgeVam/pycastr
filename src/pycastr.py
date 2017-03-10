@@ -21,7 +21,7 @@ CLIENT_IP = args.client_ip
 CLIENT_PORT = args.client_port if args.client_port!=None else "8080"
 SERVER_IP = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
 
-cast_cmd = "vlc --qt-start-minimized screen:// :screen-fps=34 :screen-caching=80 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=128,sca=Auto,width=1024,height=768}:http{mux=ts,dst=:8080/}'" + AUDIO_SETTINGS + SOUND_DEVICE_SETTINGS + VIDEO_SETTINGS
+cast_cmd = "vlc --qt-start-minimized screen:// :screen-fps=34 :screen-caching=80 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=128,sca=Auto,width=1024,height=768}:http{mux=ts,dst=:8080/" + socket.gethostname() + "}'" + AUDIO_SETTINGS + SOUND_DEVICE_SETTINGS + VIDEO_SETTINGS
 disable_local_audio_cmd = "pacmd set-sink-volume " + commands.getstatusoutput("pacmd list-sink-inputs | grep sink | grep -oP '(?<=<).*(?=>)'")[1] + " 100"
 
 subprocess.Popen(cast_cmd, shell = True)
@@ -32,10 +32,20 @@ time.sleep(.500)
 usrPass = "kodi:"
 b64Val = base64.b64encode(usrPass)
 url = 'http://' + CLIENT_IP + ':' + CLIENT_PORT + '/jsonrpc'
-print(url)
-payload = {"jsonrpc":"2.0", "id":1, "method": "Player.Open", "params":{"item":{"file":"http://" + SERVER_IP + ":8080?action=play_video"}}}
+payload = {"jsonrpc":"2.0", "id":1, "method": "Player.Open", "params":{"item":{"file":"http://" + SERVER_IP + ":8080/" + socket.gethostname() + "?action=play_video"}}}
 r=requests.post(url, 
                 headers={"Authorization": "Basic %s" % b64Val,'content-type': 'application/json'},
                 data=json.dumps(payload))
-print(r.content)
 
+# Show Notification
+payload = {"jsonrpc": "2.0", "method": "GUI.ShowNotification", "params": {"title": socket.gethostname(), "message": "pycastr"}, "id": 1}
+r=requests.post(url, 
+                headers={"Authorization": "Basic %s" % b64Val,'content-type': 'application/json'},
+                data=json.dumps(payload))
+
+# Show current item
+#payload = {"jsonrpc": "2.0", "method": "Player.GetItem", "params": { "properties": ["title", "thumbnail", "file"], "playerid": 1 }, "id": "VideoGetItem"}
+#time.sleep(.1500)
+#r=requests.post(url, 
+#                headers={"Authorization": "Basic %s" % b64Val,'content-type': 'application/json'},
+#                data=json.dumps(payload))

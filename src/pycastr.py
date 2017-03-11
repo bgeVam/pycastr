@@ -20,8 +20,6 @@ cast_start_parser.add_argument(
     '-P', '--client-port', dest='client_port', help='Client port')
 cast_start_parser.add_argument(
     '--audio-only', action='store_true', dest='audio_only')
-cast_start_parser.add_argument(
-    '--video-only', action='store_true', dest='video_only')
 
 # Cast stop
 cast_stop_parser = subparsers.add_parser(
@@ -34,7 +32,6 @@ if args.command == "cast-stop":
     sys.exit()
 
 AUDIO_SETTINGS = " --no-video --no-sout-video" if args.audio_only else ""
-VIDEO_SETTINGS = " --no-audio --no-sout-audio" if args.video_only else ""
 SOUND_DEVICE_SETTINGS = " --input-slave=pulse://" + \
     commands.getstatusoutput(
         "pacmd list-sources | awk '/name:.+\.monitor/'")[1][8:-1]
@@ -44,7 +41,7 @@ SERVER_IP = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostnam
                          [(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
 
 cast_cmd = "vlc --qt-start-minimized screen:// :screen-fps=34 :screen-caching=80 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=128,sca=Auto,width=1024,height=768}:http{mux=ts,dst=:8080/" + socket.gethostname(
-) + "}'" + AUDIO_SETTINGS + SOUND_DEVICE_SETTINGS + VIDEO_SETTINGS
+) + "}'" + AUDIO_SETTINGS + SOUND_DEVICE_SETTINGS
 disable_local_audio_cmd = "pacmd set-sink-volume " + commands.getstatusoutput(
     "pacmd list-sink-inputs | grep sink | grep -oP '(?<=<).*(?=>)'")[1] + " 100"
 

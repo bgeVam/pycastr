@@ -1,10 +1,15 @@
 #!/usr/bin/python
-import os,subprocess
-import commands,json
-import requests, base64
-import sys,time
 import argparse
+import base64
+import commands
+import json
+import os
+import requests
 import socket
+import subprocess
+import sys
+import time
+
 from kodijson import Kodi, Player
 
 parser = argparse.ArgumentParser(description="Cast Desktop")

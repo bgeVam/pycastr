@@ -7,12 +7,23 @@ import argparse
 import socket
 
 parser = argparse.ArgumentParser(description="Cast Desktop")
-parser.add_argument('cast', nargs="+", help="cast desktop to a client")
-parser.add_argument('-C', '--client-ip', dest='client_ip', required=True, help='Client hostname or IP Address')
-parser.add_argument('-P', '--client-port', dest='client_port', help='Client port')
-parser.add_argument('--audio-only', action='store_true', dest='audio_only')
-parser.add_argument('--video-only', action='store_true', dest='video_only')
+subparsers = parser.add_subparsers(help='commands', dest='command')
+
+# Cast start
+cast_start_parser = subparsers.add_parser('cast-start', help='cast desktop to client')
+cast_start_parser.add_argument('-C', '--client-ip', dest='client_ip', required=True, help='Client hostname or IP Address')
+cast_start_parser.add_argument('-P', '--client-port', dest='client_port', help='Client port')
+cast_start_parser.add_argument('--audio-only', action='store_true', dest='audio_only')
+cast_start_parser.add_argument('--video-only', action='store_true', dest='video_only')
+
+# Cast stop
+cast_stop_parser = subparsers.add_parser('cast-stop', help='Create a directory')
+
 args = parser.parse_args()
+
+if args.command == "cast-stop":
+	subprocess.Popen("killall vlc", shell = True) 
+	sys.exit()
 
 AUDIO_SETTINGS = " --no-video --no-sout-video" if args.audio_only else ""
 VIDEO_SETTINGS = " --no-audio --no-sout-audio" if args.video_only else ""

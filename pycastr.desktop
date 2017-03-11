@@ -5,25 +5,30 @@ Name=pycastr
 # From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413.
 GenericName=pycastr
 Comment=Cast audio/video to upnp clients
-Exec=python /opt/pycastr/pycastr.py cast -C 192.168.0.15 --audio-only
+Exec=python /opt/pycastr/pycastr.py cast-start -C 192.168.0.15 --audio-only
 Terminal=false
 Icon=/usr/share/icons/hicolor/256x256/apps/pycastr.png
 Type=Application
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
-X-Ayatana-Desktop-Shortcuts=CastDesktop;CastPresentation;CastAudio
+X-Ayatana-Desktop-Shortcuts=CastDesktop;CastPresentation;CastAudio;StopCast
 
 [Desktop Action CastDesktop]
 Name=Cast Desktop
-Exec=python /opt/pycastr/pycastr.py cast -C 192.168.0.15
+Exec=python /opt/pycastr/pycastr.py cast-start -C 192.168.0.15
 Icon=/usr/share/icons/hicolor/256x256/apps/pycastr_cast_screen_audio.png
 
 [Desktop Action CastPresentation]
 Name=Cast Presentation
-Exec=python /opt/pycastr/pycastr.py cast -C 192.168.0.15 --video-only
+Exec=python /opt/pycastr/pycastr.py cast-start -C 192.168.0.15 --video-only
 Icon=/usr/share/icons/hicolor/256x256/apps/pycastr_cast_screen.png
 
 [Desktop Action CastAudio]
 Name=Cast Audio
-Exec=python /opt/pycastr/pycastr.py cast -C 192.168.0.15 --audio-only
+Exec=python /opt/pycastr/pycastr.py cast-start -C 192.168.0.15 --audio-only
 Icon=/usr/share/icons/hicolor/256x256/apps/pycastr_cast_audio.png
+
+[Desktop Action StopCast]
+Name=Stop Cast
+Exec=python /opt/pycastr/pycastr.py cast-stop
+Icon=/usr/share/icons/hicolor/256x256/apps/pycastr_stop_cast.png

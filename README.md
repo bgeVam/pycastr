@@ -15,7 +15,11 @@ The original icon may be found in [Google's material design icon repository](htt
 
 ## Install
 
-**note** Ensure vlc is installed on your computer
+**Requirements** 
+
+* vlc
+* python
+* [python-kodijson](https://github.com/jcsaaddupuy/python-kodijson)
 
 Just run install.sh as super user
 

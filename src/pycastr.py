@@ -1,11 +1,10 @@
 #!/usr/bin/python
 import argparse
-import commands
 import socket
 import subprocess
 import sys
 import time
-
+from netdisco.discovery import NetworkDiscovery
 from kodijson import Kodi, Player
 
 parser = argparse.ArgumentParser(description="Cast Desktop")
@@ -23,7 +22,11 @@ cast_start_parser.add_argument(
 
 # Cast stop
 cast_stop_parser = subparsers.add_parser(
-    'cast-stop', help='Create a directory')
+    'cast-stop', help='stop casting desktop to client')
+
+# List Clients
+list_clients_parser = subparsers.add_parser(
+    'list-clients', help='list all available clients')
 
 args = parser.parse_args()
 
@@ -31,10 +34,18 @@ if args.command == "cast-stop":
     subprocess.Popen("killall vlc", shell=True)
     sys.exit()
 
+if args.command == "list-clients":
+    netdis = NetworkDiscovery()
+    netdis.scan()
+    for dev in netdis.discover():
+        print(dev, netdis.get_info(dev))
+    netdis.stop()
+    sys.exit()
+
 AUDIO_SETTINGS = " --no-video --no-sout-video" if args.audio_only else ""
 SOUND_DEVICE_SETTINGS = " --input-slave=pulse://" + \
-    commands.getstatusoutput(
-        "pacmd list-sources | awk '/name:.+\.monitor/'")[1][8:-1]
+    subprocess.getoutput(
+        "pacmd list-sources | grep name: -m 1 | grep -oP '(?<=<).*(?=>)'")
 CLIENT_IP = args.client_ip
 CLIENT_PORT = args.client_port if args.client_port != None else "8080"
 SERVER_IP = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [
@@ -42,7 +53,7 @@ SERVER_IP = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostnam
 
 cast_cmd = "vlc --qt-start-minimized screen:// :screen-fps=34 :screen-caching=80 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=128,sca=Auto,width=1024,height=768}:http{mux=ts,dst=:8080/" + socket.gethostname(
 ) + "}'" + AUDIO_SETTINGS + SOUND_DEVICE_SETTINGS
-disable_local_audio_cmd = "pacmd set-sink-volume " + commands.getstatusoutput(
+disable_local_audio_cmd = "pacmd set-sink-volume " + subprocess.getoutput(
     "pacmd list-sink-inputs | grep sink | grep -oP '(?<=<).*(?=>)'")[1] + " 100"
 
 subprocess.Popen(cast_cmd, shell=True)

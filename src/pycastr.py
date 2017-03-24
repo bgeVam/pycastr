@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import argparse
+import re
 import socket
 import subprocess
 import sys
@@ -38,14 +39,18 @@ if args.command == "list-clients":
     netdis = NetworkDiscovery()
     netdis.scan()
     for dev in netdis.discover():
-        print(dev, netdis.get_info(dev))
+        client_name = dev
+        client_ip = re.search(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', str(netdis.get_info(dev))).group()
+        print(dev + ":" + client_ip)
     netdis.stop()
     sys.exit()
 
 AUDIO_SETTINGS = " --no-video --no-sout-video" if args.audio_only else ""
+
 SOUND_DEVICE_SETTINGS = " --input-slave=pulse://" + \
     subprocess.getoutput(
-        "pacmd list-sources | grep name: -m 1 | grep -oP '(?<=<).*(?=>)'")
+        "pacmd list-sources | grep name: | grep monitor | grep -oP '(?<=<).*(?=>)'")
+
 CLIENT_IP = args.client_ip
 CLIENT_PORT = args.client_port if args.client_port != None else "8080"
 SERVER_IP = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [
@@ -54,7 +59,7 @@ SERVER_IP = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostnam
 cast_cmd = "vlc --qt-start-minimized screen:// :screen-fps=34 :screen-caching=80 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=128,sca=Auto,width=1024,height=768}:http{mux=ts,dst=:8080/" + socket.gethostname(
 ) + "}'" + AUDIO_SETTINGS + SOUND_DEVICE_SETTINGS
 disable_local_audio_cmd = "pacmd set-sink-volume " + subprocess.getoutput(
-    "pacmd list-sink-inputs | grep sink | grep -oP '(?<=<).*(?=>)'")[1] + " 100"
+    "pacmd list-sink-inputs | grep sink | grep -oP '(?<=<).*(?=>)'") + " 100"
 
 subprocess.Popen(cast_cmd, shell=True)
 subprocess.Popen(disable_local_audio_cmd, shell=True)

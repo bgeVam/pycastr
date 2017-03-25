@@ -63,6 +63,7 @@ public class PycastrIndicator
         menu.append(search_item);
         menu.append(new Gtk.SeparatorMenuItem ());
         menu.append(get_settings_menu_item());
+        menu.append(get_include_screen_menu_item());
         menu.show_all();
         return menu;
     }
@@ -156,6 +157,17 @@ public class PycastrIndicator
             win.show_all();
         });
         return settings_menu_item;
+    }
+
+    private Gtk.CheckMenuItem get_include_screen_menu_item()
+    {
+        Gtk.CheckMenuItem screen_option = new Gtk.CheckMenuItem.with_label ("Screen mirroring");
+        screen_option.set_active (false);
+        screen_option.toggled.connect (() =>
+        {
+            client_service.set_include_screen(screen_option.get_active());
+        });
+        return screen_option;
     }
 
     private void notify_user(string body)

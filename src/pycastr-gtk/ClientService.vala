@@ -19,10 +19,16 @@ class ClientService
 {
 
     private bool searching = false;
+    private bool include_screen = true;
     private Client active_client;
     private ArrayList<Client> newly_discovered_clients = new ArrayList<Client>();
     private ArrayList<Client> available_clients = new ArrayList<Client>();
     private PycastrIndicator pycastr_indicator;
+
+    public void set_include_screen(bool include_screen)
+    {
+        this.include_screen = include_screen;
+    }
 
     public bool is_searching()
     {
@@ -122,7 +128,7 @@ class ClientService
         client.set_active(true);
         active_client = client;
         pycastr_indicator.update();
-        string[] spawn_args = {"python3", "pycastr.py", "cast-start", "-C" + client.get_ip()};
+        string[] spawn_args = {"python3", "pycastr.py", "cast-start", "-C" + client.get_ip(), (include_screen) ? null : "--audio-only"};
         string[] spawn_env = Environ.get ();
         Pid child_pid;
         Process.spawn_async ("../",

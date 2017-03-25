@@ -50,8 +50,8 @@ public class PycastrIndicator
     public Gtk.Menu update_menu()
     {
         Gtk.Menu menu = new Gtk.Menu();
-        menu.append(new Gtk.MenuItem.with_label("Cast Receivers"));
-
+        search_item = get_search_menu_item();
+        menu.append(search_item);
         foreach (Client client in client_service.get_available_clients())
         {
             if (client != null)
@@ -59,10 +59,6 @@ public class PycastrIndicator
                 menu.add (get_client_menu_item(client));
             }
         }
-        search_item = get_search_menu_item();
-        menu.append(search_item);
-        menu.append(new Gtk.SeparatorMenuItem ());
-        menu.append(get_settings_menu_item());
         menu.append(get_include_screen_menu_item());
         menu.show_all();
         return menu;
@@ -82,7 +78,6 @@ public class PycastrIndicator
     {
         if (client_service.is_searching())
         {
-            stderr.printf ("There is already a search process running\n");
             return;
         }
         client_service.search_available_clients();
@@ -90,11 +85,11 @@ public class PycastrIndicator
         while(client_service.is_searching())
         {
             search_string += ".";
-            if(search_string == ("Searching..."))
+            if(search_string == ("Searching...."))
             {
                 search_string = "Searching";
             }
-            Thread.usleep(1 * 1000 * 1000);
+            Thread.usleep(500 * 1000);
             search_item.set_label(search_string);
             Idle.add (update_available_clients.callback);
             yield;
@@ -133,30 +128,13 @@ public class PycastrIndicator
 
     private Gtk.MenuItem get_search_menu_item()
     {
-        var search_menu_item = new Gtk.MenuItem.with_label("Search");
+        var search_menu_item = new Gtk.MenuItem.with_label("Search clients");
         search_menu_item.activate.connect(() =>
         {
-            notify_user("Searching for Clients");
+            notify_user("Searching for clients");
             update_available_clients();
         });
         return search_menu_item;
-    }
-
-    private Gtk.MenuItem get_settings_menu_item()
-    {
-        var settings_menu_item = new Gtk.MenuItem.with_label("Settings");
-        settings_menu_item.activate.connect(() =>
-        {
-            var win = new Window();
-            win.title = "Indicator Test";
-            win.resize(200, 200);
-            win.destroy.connect(Gtk.main_quit);
-
-            var label = new Label("Settings may be set here.");
-            win.add(label);
-            win.show_all();
-        });
-        return settings_menu_item;
     }
 
     private Gtk.CheckMenuItem get_include_screen_menu_item()

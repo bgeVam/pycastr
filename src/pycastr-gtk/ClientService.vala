@@ -48,7 +48,6 @@ class ClientService
     public void search_available_clients()
     {
         searching = true;
-        stderr.printf ("ClientService Searching for Clients...\n");
         string[] spawn_args = {"python3", "pycastr.py", "list-clients"};
         string[] spawn_env = Environ.get ();
         Pid child_pid;
@@ -81,9 +80,7 @@ class ClientService
             }
             available_clients = newly_discovered_clients;
             newly_discovered_clients = new ArrayList<Client>();
-            stderr.printf (available_clients.size.to_string() + "\n");
             pycastr_indicator.update();
-            stderr.printf ("Done Searching...\n");
             searching = false;
         });
     }
@@ -99,12 +96,10 @@ class ClientService
             string client_line;
             channel.read_line (out client_line, null, null);
             string[] client_name_ip_array = client_line.split_set(":");
-            stderr.printf (client_line + "\n");
             if ((active_client == null) || (client_name_ip_array[1] != active_client.get_ip()))
             {
                 newly_discovered_clients.add (new Client(client_name_ip_array[0], client_name_ip_array[1]));
             }
-            stderr.printf (newly_discovered_clients.size.to_string() + "\n");
         }
         catch (IOChannelError e)
         {

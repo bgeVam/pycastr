@@ -56,7 +56,7 @@ CLIENT_PORT = args.client_port if args.client_port != None else "8080"
 SERVER_IP = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [
                          [(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
 
-cast_cmd = "vlc --qt-start-minimized screen:// :screen-fps=34 :screen-caching=80 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=128,sca=Auto,width=1024,height=768}:http{mux=ts,dst=:8080/" + socket.gethostname(
+cast_cmd = "cvlc --qt-start-minimized screen:// :screen-fps=34 :screen-caching=80 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=128,sca=Auto,width=1024,height=768}:http{mux=ts,dst=:8080/" + socket.gethostname(
 ) + "}'" + AUDIO_SETTINGS + SOUND_DEVICE_SETTINGS
 disable_local_audio_cmd = "pacmd set-sink-volume " + subprocess.getoutput(
     "pacmd list-sink-inputs | grep sink | grep -oP '(?<=<).*(?=>)'") + " 100"

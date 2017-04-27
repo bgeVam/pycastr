@@ -37,3 +37,11 @@ Just run uninstall.sh as super user
 ```
 sudo ./uninstall.sh
 ```
+
+## Compile Indicator
+
+Compile Indicator with
+
+```
+valac *.vala --pkg gee-1.0 --pkg appindicator-0.1 --pkg gtk+-3.0 --pkg libnotify -o PycastrIndicator
+```

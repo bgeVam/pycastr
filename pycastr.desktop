@@ -1,29 +1,22 @@
 [Desktop Entry]
 Version=1.0
-Name=pycastr
-# Only KDE 4 seems to use GenericName, so we reuse the KDE strings.
-# From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413.
-GenericName=pycastr
-Comment=Cast audio/video to upnp clients
-Exec=python /opt/pycastr/pycastr.py cast-start -C 192.168.0.15 --audio-only
+
+Name=Pycastr
+
+GenericName=Audio/Video Streamer
+
+Comment=Cast your audio/video to upnp clients
+
+Exec=/opt/pycastr/src/pycastr-gtk/PycastrGtk
+
 Terminal=false
-Icon=/usr/share/icons/hicolor/256x256/apps/pycastr.png
+
 Type=Application
-Categories=Network;WebBrowser;
-MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
-X-Ayatana-Desktop-Shortcuts=CastDesktop;CastAudio;StopCast
 
-[Desktop Action CastDesktop]
-Name=Cast Desktop
-Exec=python /opt/pycastr/pycastr.py cast-start -C 192.168.0.15
-Icon=/usr/share/icons/hicolor/256x256/apps/pycastr_cast_screen_audio.png
+Icon=pycastr-status-on
 
-[Desktop Action CastAudio]
-Name=Cast Audio
-Exec=python /opt/pycastr/pycastr.py cast-start -C 192.168.0.15 --audio-only
-Icon=/usr/share/icons/hicolor/256x256/apps/pycastr_cast_audio.png
+Categories=Audio;Video;AudioVideo
 
-[Desktop Action StopCast]
-Name=Stop Cast
-Exec=python /opt/pycastr/pycastr.py cast-stop
-Icon=/usr/share/icons/hicolor/256x256/apps/pycastr_stop_cast.png
+StartupNotify=false
+
+X-GNOME-Autostart-enabled=true

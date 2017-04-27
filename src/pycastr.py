@@ -43,6 +43,8 @@ if args.command == "list-clients":
         client_ip = re.search(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', str(netdis.get_info(dev))).group()
         print(dev + ":" + client_ip)
     netdis.stop()
+    print("LivingRoom:192.168.0.15")
+    print("Balcony:192.168.0.18")
     sys.exit()
 
 AUDIO_SETTINGS = " --no-video --no-sout-video" if args.audio_only else ""
@@ -65,7 +67,9 @@ subprocess.Popen(cast_cmd, shell=True)
 subprocess.Popen(disable_local_audio_cmd, shell=True)
 
 # PUSH TO KODI
-kodi = Kodi("http://" + CLIENT_IP + ":" + CLIENT_PORT + "/jsonrpc", "kodi", "")
+KODI_URL = "http://" + CLIENT_IP.replace(' ', '') + ":" + CLIENT_PORT + "/jsonrpc"
+KODI_URL = KODI_URL.replace('\r', '').replace('\n', '')
+kodi = Kodi(KODI_URL, "kodi", "")
 kodi.GUI.ShowNotification(title=socket.gethostname(), message="pycastr")
 time.sleep(.500)
 kodi.Player.Open({"item": {"file": "http://" + SERVER_IP +

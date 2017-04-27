@@ -1,7 +1,8 @@
 #!/bin/sh
 
-rm -rf /opt/pycastr/
+sudo rm -rf /opt/pycastr/
 
-rm /usr/share/applications/pycastr.desktop
+sudo rm ~/.config/autostart/pycastr.desktop
 
-rm /usr/share/icons/hicolor/256x256/apps/pycastr*.png
+sudo rm /usr/share/icons/hicolor/256x256/apps/pycastr*.svg
+sudo rm /usr/share/icons/hicolor/scalable/apps/pycastr*.svg

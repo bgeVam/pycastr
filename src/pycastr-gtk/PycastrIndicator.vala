@@ -140,7 +140,7 @@ public class PycastrIndicator
     private Gtk.CheckMenuItem get_include_screen_menu_item()
     {
         Gtk.CheckMenuItem screen_option = new Gtk.CheckMenuItem.with_label ("Screen mirroring");
-        screen_option.set_active (false);
+        screen_option.set_active (client_service.get_include_screen());
         screen_option.toggled.connect (() =>
         {
             client_service.set_include_screen(screen_option.get_active());

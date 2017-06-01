@@ -19,11 +19,16 @@ class ClientService
 {
 
     private bool searching = false;
-    private bool include_screen = true;
+    private bool include_screen = false;
     private Client active_client;
     private ArrayList<Client> newly_discovered_clients = new ArrayList<Client>();
     private ArrayList<Client> available_clients = new ArrayList<Client>();
     private PycastrIndicator pycastr_indicator;
+
+    public bool get_include_screen()
+    {
+        return include_screen;
+    }
 
     public void set_include_screen(bool include_screen)
     {

@@ -4,6 +4,8 @@
 
 Neat tool to cast your audio/video to UPnP clients
 
+![Alt Text](https://github.com/bgeVam/pycastr/blob/master/pycastr_demo.gif)
+
 ## Features
 
 ![alt text](https://github.com/bgeVam/pycastr/blob/master/data/icons/pycastr_cast_screen_audio.png?raw=true "Mirror Desktop") Mirror your systems desktop on your TV

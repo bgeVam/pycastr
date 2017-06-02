@@ -12,9 +12,7 @@ Neat tool to cast your audio/video to UPnP clients
 
 ![alt text](https://github.com/bgeVam/pycastr/blob/master/data/icons/pycastr_cast_audio.png?raw=true "Cast Audio") Stream your audio to your hifi system
 
-## Logo
-
-![alt text](https://github.com/bgeVam/pycastr/blob/master/data/icons/pycastr.png?raw=true "pycastr logo")
+## Icon
 
 The original icon may be found in [Google's material design icon repository](https://github.com/google/material-design-icons "material design icons repository").
 

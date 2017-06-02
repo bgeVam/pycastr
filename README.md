@@ -12,9 +12,18 @@ Neat tool to cast your audio/video to UPnP clients
 
 ![alt text](https://github.com/bgeVam/pycastr/blob/master/data/icons/pycastr_cast_audio.png?raw=true "Cast Audio") Stream your audio to your hifi system
 
-## Icon
+## Usage
 
-The original icon may be found in [Google's material design icon repository](https://github.com/google/material-design-icons "material design icons repository").
+NOTE: Two dummy clients are added as examples in pycastr.py. Sometimes client discovery fails, if this happens, just add your clients in lines 45-48 in pycastr.py.
+
+* Select "Search clients" to update the list of available clients
+* Select a client from the list to start casting
+* Select this client again to stop casting
+* Choose "Screen mirroring" for video casting
+
+## Icons
+
+The original icons used by pycastr may be found in [Google's material design icon repository](https://github.com/google/material-design-icons "material design icons repository").
 
 ## Install
 

@@ -7,7 +7,7 @@ GenericName=Audio/Video Streamer
 
 Comment=Cast your audio/video to upnp clients
 
-Exec=/opt/pycastr/src/pycastr-gtk/PycastrGtk
+Exec=/opt/pycastr/src/pycastr-gtk/PycastrIndicator
 
 Terminal=false
 

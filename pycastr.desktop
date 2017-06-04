@@ -1,22 +1,8 @@
 [Desktop Entry]
-Version=1.0
-
 Name=Pycastr
-
 GenericName=Audio/Video Streamer
-
 Comment=Cast your audio/video to upnp clients
-
 Exec=/opt/pycastr/src/pycastr-gtk/PycastrIndicator
-
 Terminal=false
-
 Type=Application
-
 Icon=pycastr-status-on
-
-Categories=Audio;Video;AudioVideo
-
-StartupNotify=false
-
-X-GNOME-Autostart-enabled=true

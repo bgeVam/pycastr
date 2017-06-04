@@ -18,3 +18,4 @@ pip3 install kodi-json
 
 # Prepare autostart
 cp pycastr.desktop ~/.config/autostart
+sudo update-desktop-database

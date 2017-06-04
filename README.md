@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9d52f052fea5479494a971633cb03abc)](https://www.codacy.com/app/georg-bernold/pycastr?utm_source=github.com&utm_medium=referral&utm_content=bgeVam/pycastr&utm_campaign=badger)
 
-Neat tool to cast your audio/video to UPnP clients
+Neat tool to cast your audio/video to kodi clients
 
 ![Alt Text](https://github.com/bgeVam/pycastr/blob/master/pycastr_demo.gif)
 

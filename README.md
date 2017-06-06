@@ -25,32 +25,40 @@ NOTE: Two dummy clients are added as examples in pycastr.py. Sometimes client di
 
 The original icons used by pycastr may be found in [Google's material design icon repository](https://github.com/google/material-design-icons "material design icons repository").
 
-## Install
+## Compile and Install
 
-**Requirements** 
+**Install with Cmake** 
 
-* vlc
-* python
-* [python-kodijson](https://github.com/jcsaaddupuy/python-kodijson)
+For advanced instructions please take a look at [the elementary os developer guidelines](https://elementary.io/en/docs/code/getting-started#building-and-installing-with-cmake).
 
-Just run install.sh as super user
+Please start with cloning or downloading the repository.
 
-```
-sudo ./install.sh
-```
-
-## Uninstall
-
-Just run uninstall.sh as super user
+1. Create a build directory
 
 ```
-sudo ./uninstall.sh
+mkdir build
 ```
 
-## Compile Indicator
-
-Compile Indicator with
+2. Change to build directory
 
 ```
-valac *.vala --pkg gee-1.0 --pkg appindicator-0.1 --pkg gtk+-3.0 --pkg libnotify -o PycastrIndicator
+cd build/
+```
+
+3. Prepare to build the app
+
+```
+cmake -DCMAKE_INSTALL_PREFIX=/usr ../
+```
+
+4. Build the app
+
+```
+make
+```
+
+5. Install the app
+
+```
+sudo make install
 ```

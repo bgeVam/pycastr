@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Georg Bernold <Contact me on Github: github.com/bgeVam> -->
+<component type="desktop">
+  <id>com.github.bgeVam.pycastr.desktop</id>
+  <metadata_license>CC0</metadata_license>
+  <name>pycastr</name>
+  <summary>Cast your audio/video to kodi clients</summary>
+  <description>
+    <p>Pycastr is a neat tool to cast your audio/video to kodi clients. This enables you to mirror your system's desktop on your TV or stream your audio to your hifi system.</p>
+  </description>
+</component>

@@ -59,7 +59,7 @@ class ClientService
         int standard_input;
         int standard_output;
         int standard_error;
-        Process.spawn_async_with_pipes ("/opt/pycastr/src/",
+        Process.spawn_async_with_pipes ("/tmp/pycastr/src/",
                                         spawn_args,
                                         spawn_env,
                                         SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,
@@ -131,7 +131,7 @@ class ClientService
         string[] spawn_args = {"python3", "pycastr.py", "cast-start", "-C" + client.get_ip(), (include_screen) ? null : "--audio-only"};
         string[] spawn_env = Environ.get ();
         Pid child_pid;
-        Process.spawn_async ("/opt/pycastr/src/",
+        Process.spawn_async ("/tmp/pycastr/src/",
                              spawn_args,
                              spawn_env,
                              SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,
@@ -151,7 +151,7 @@ class ClientService
         string[] spawn_args = {"python3", "pycastr.py", "cast-stop"};
         string[] spawn_env = Environ.get ();
         Pid child_pid;
-        Process.spawn_async ("/opt/pycastr/src/",
+        Process.spawn_async ("/tmp/pycastr/src/",
                              spawn_args,
                              spawn_env,
                              SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,

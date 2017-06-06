@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Pycastr
 GenericName=Audio/Video Streamer
-Comment=Cast your audio/video to upnp clients
-Exec=/opt/pycastr/src/pycastr-gtk/PycastrIndicator
+Comment=Cast your audio/video to kodi clients
+Exec=com.github.bgeVam.pycastr
 Terminal=false
 Type=Application
 Icon=pycastr-status-on

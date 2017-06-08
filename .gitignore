@@ -1,1 +1,7 @@
 build/
+debian/debhelper-build-stamp
+debian/files
+debian/pycastr.debhelper.log
+debian/pycastr.substvars
+debian/pycastr/
+obj-x86_64-linux-gnu/
